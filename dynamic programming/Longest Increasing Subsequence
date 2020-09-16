@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int ciel(int nums[],int l,int r,int x)
+    {
+        int mid;
+        while(l<=r)
+        {
+           mid = l+(r-l)/2;
+            if(x>nums[mid])
+                l = mid+1;
+            else
+                r = mid-1; 
+            
+        }
+        return l;
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        if(n ==0)
+            return 0;
+        int dp[n];
+        dp[0]=nums[0];
+        int end =1;
+        for(int i =1;i<n;i++)
+        {
+            if(dp[end-1]<nums[i])
+            {
+                
+                dp[end]=nums[i];
+                end++;
+            }
+            else{
+            int c = ciel(dp,0,end-1,nums[i]);
+             dp[c] = nums[i];
+            }
+            
+                
+        }
+        return end;
+        
+    }
+    
+};
